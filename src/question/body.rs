@@ -5,9 +5,9 @@ use crate::question::answer_count::*;
 
 #[derive(PartialEq, Props)]
 pub struct BodyProps{
-    vote_count: u32,
-    answer_count: u32,
-    text: String
+    vote: u32,
+    answer: u32,
+    _body: String
 }
 
 pub fn Body(cx: Scope<BodyProps>) -> Element {
@@ -17,15 +17,15 @@ pub fn Body(cx: Scope<BodyProps>) -> Element {
             div { 
                 class: "col-2 vote-answer-block",
                 VoteCount {
-                    count: cx.props.vote_count
+                    count: cx.props.vote
                 }
                 AnswerCount {
-                    count: cx.props.answer_count
+                    count: cx.props.answer
                 }
             }
             div { 
                 class: "col-10 row-question-body",
-                "{cx.props.text}"
+                dangerous_inner_html:"{cx.props._body}"
             }
         }
     })
