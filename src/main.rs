@@ -6,12 +6,6 @@ fn main() {
     dioxus::web::launch(app);
 }
 
-// #[derive(Debug, PartialEq, Clone)]
-// pub struct AnswerItem {
-//     vote: u32,
-//     _title: String,
-//     _description: String
-// }
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct QuestionItem {
@@ -24,16 +18,7 @@ pub struct QuestionItem {
     // pub answerList: Vec<AnswerItem>
 }
 
-pub static APPSTATE: AtomRef<Vec<QuestionItem>> = |_|
-    vec![QuestionItem {
-        id: 100,
-        post_type_id: 1,
-        vote: 100,
-        answer: 50,
-        _title: "test ttitle".to_string(),
-        _body: "test_description".to_string(),
-    }];
-
+pub static APPSTATE: AtomRef<Vec<QuestionItem>> = |_| vec![];
 fn app(cx: Scope) -> Element {
     let questions = use_atom_ref(&cx, APPSTATE);
     cx.render(
