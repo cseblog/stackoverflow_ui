@@ -1,0 +1,15 @@
+        // div {
+        //     class: "container",
+        //     search::Search {}
+        //     div {
+        //         questions.read().iter().map(|q| rsx!{
+        //             question::Question {
+        //                 id: q.id,
+        //                 vote: q.vote.clone(),
+        //                 answer: q.answer.clone(),
+        //                 _title: q._title.clone(),
+        //                 _body: q._body.clone()
+        //             }
+        //         })
+        //     }
+        // }

@@ -2,8 +2,8 @@ use dioxus::prelude::*;
 
 #[derive(PartialEq, Props)]
 pub struct AnswerProps {
-    answer_count: u32,
-    vote_count: u32,
+    answer_count: String,
+    vote_count: String,
     text: String
 }
 

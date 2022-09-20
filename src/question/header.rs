@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 
 #[derive(PartialEq, Props)]
 pub struct HeaderProps{
+    id: u64,
     _title: String
 }
 
@@ -11,7 +12,7 @@ pub fn Header(cx: Scope<HeaderProps>) -> Element {
             class:"row-question-header",
             h4 {
                 a {
-                    href:"#",
+                    href:"/{cx.props.id}",
                     "{cx.props._title}"
                 }
             }

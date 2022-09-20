@@ -2,12 +2,11 @@ use dioxus::prelude::*;
 
 #[derive(PartialEq, Props)]
 pub struct AnswerCountProps {
-    count: u32,
+    count: String,
 }
 
 pub fn AnswerCount(cx: Scope<AnswerCountProps>) -> Element {
-    cx.render(
-        rsx! {
+    cx.render(rsx! {
         div {
             class: "answer-count",
             div {
@@ -17,6 +16,5 @@ pub fn AnswerCount(cx: Scope<AnswerCountProps>) -> Element {
                 "anwers"
             }
         }
-    }
-    )
+    })
 }
