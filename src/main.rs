@@ -1,9 +1,17 @@
-use dioxus::{ prelude::*, router::{Route, Router} };
+#![allow(non_snake_case)]
 
-mod question;
-mod search;
+use dioxus::{
+    prelude::*,
+    router::{Route, Router},
+};
+
 mod home;
 mod post;
+mod question;
+mod search;
+
+use home::Home;
+use post::Post;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct QuestionItem {
@@ -16,19 +24,16 @@ pub struct QuestionItem {
     // pub answerList: Vec<AnswerItem>
 }
 
-pub static APPSTATE: AtomRef<Vec<QuestionItem>> = |_| vec![];
-
+pub static QUESTION_LISTS: AtomRef<Vec<QuestionItem>> = |_| vec![];
 fn main() {
     dioxus::web::launch(app);
 }
 
 fn app(cx: Scope) -> Element {
-
-    let questions = use_atom_ref(&cx, APPSTATE);
     cx.render(rsx! {
         Router {
-            Route { to: "/", children: Home{}}, 
-            Route { to: "/question", children: Post {}}
+            Route { to: "/", Home{}},
+            Route { to: "/question/:id", Post {}}
         }
     })
 }

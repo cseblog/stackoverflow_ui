@@ -4,11 +4,11 @@ use dioxus::prelude::*;
 pub struct AnswerProps {
     answer_count: String,
     vote_count: String,
-    text: String
+    text: String,
 }
 
 pub fn Answer(cx: Scope<AnswerProps>) -> Element {
-    cx.render(rsx!{
+    cx.render(rsx! {
         div {
             class: "row answer vote-answer-block",
             div {
@@ -19,4 +19,4 @@ pub fn Answer(cx: Scope<AnswerProps>) -> Element {
             }
         }
     })
-}        
+}

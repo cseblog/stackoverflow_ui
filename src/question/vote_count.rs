@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 
 #[derive(PartialEq, Props)]
-pub struct VoteCountProps{
-    count: String
+pub struct VoteCountProps {
+    count: String,
 }
 
 pub fn VoteCount(cx: Scope<VoteCountProps>) -> Element {
-    cx.render(rsx!{
+    cx.render(rsx! {
         div {
             class: "vote-count",
             div {

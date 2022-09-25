@@ -1,9 +1,6 @@
-use std::vec;
-
 use crate::QuestionItem;
-use crate::APPSTATE;
+use crate::QUESTION_LISTS;
 use dioxus::prelude::*;
-use gloo::net::http::Request;
 
 #[derive(Debug, PartialEq, Clone, serde::Serialize, serde::Deserialize)]
 pub struct PostRow {
@@ -36,13 +33,15 @@ pub fn tranform(post: &PostRow) -> QuestionItem {
     return p;
 }
 
-pub fn Search(cx: Scope<()>) -> Element {
+pub fn Search(cx: Scope<()>) -> Element {  
     let state = use_state(&cx, || "".to_string());
-    let questions = use_atom_ref(&cx, APPSTATE);
+    let questions = use_atom_ref(&cx, QUESTION_LISTS);
 
-    //Get list question
+    // Get list question
     let txt = state.get();
-    let post_request = use_future(&cx, txt, |txt| async move {
+
+    let post_request 
+            = use_future(&cx, txt, |txt| async move {
         reqwest::Client::new()
             .post("http://localhost:9990/search")
             .body(txt)
@@ -53,7 +52,7 @@ pub fn Search(cx: Scope<()>) -> Element {
             .await
     });
 
-    let status = match post_request.value() {
+    match post_request.value() {
         Some(Ok(post_list)) => {
             let mut count = 0;
             questions.write().clear();
@@ -65,13 +64,20 @@ pub fn Search(cx: Scope<()>) -> Element {
                 }
             }
         }
-        Some(Err(err)) => {}
+        Some(Err(_)) => {}
         None => {}
     };
 
     cx.render(rsx! {
         div {
             class: "row height d-flex justify-content-center align-items-center",
+            div {
+                class:"col-4", 
+                a {
+                    href: "/", 
+                    "home"
+                }
+            },
             div {
                 class: "col-8",
                 div {
@@ -85,11 +91,6 @@ pub fn Search(cx: Scope<()>) -> Element {
                             state.set(evt.value.clone());
                         }
                     },
-                    button {
-                        class:"btn btn-primary",
-                        // onclick: move |_| app_state.search_txt = "".to_string(),
-                        "Search"
-                    }
                 }
             }
         }

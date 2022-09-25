@@ -1,7 +1,7 @@
-use dioxus::prelude::{*};
+use dioxus::prelude::*;
 
-pub mod header;
 pub mod body;
+pub mod header;
 
 pub mod answer_count;
 pub mod vote_count;
@@ -12,12 +12,12 @@ pub struct QuestionProps {
     vote: String,
     answer: String,
     _title: String,
-    _body: String
+    _body: String,
 }
 
 pub fn Question(cx: Scope<QuestionProps>) -> Element {
-    cx.render(rsx!{
-        div { 
+    cx.render(rsx! {
+        div {
             header::Header{
                 id: cx.props.id,
                 _title: cx.props._title.clone()
