@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 #[derive(PartialEq, Props)]
 pub struct AnswerCountProps {
-    count: String,
+    count: u64,
 }
 
 pub fn AnswerCount(cx: Scope<AnswerCountProps>) -> Element {

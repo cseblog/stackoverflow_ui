@@ -1,15 +1,11 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 
-#[derive(PartialEq, Props)]
-pub struct HeaderProps {
-    id: u64,
-    _title: String,
-}
+use crate::{QuestionObject, QUESTION_LISTS};
 
-pub fn Header(cx: Scope<HeaderProps>) -> Element {
-    let id = cx.props.id;
-    
+pub fn Header(cx: Scope<QuestionObject>) -> Element {
+    let id = cx.props.post.id;
+    let questions = use_atom_ref(&cx, QUESTION_LISTS);
     cx.render(rsx! {
         div {
             class:"row-question-header",
@@ -17,9 +13,8 @@ pub fn Header(cx: Scope<HeaderProps>) -> Element {
                 a {
                     href:"/question/{id}",
                     onclick: move |_| {
-                        
                     },
-                    "{id}-{cx.props._title}"
+                    "{cx.props.post._title}"
                 }
             }
         }

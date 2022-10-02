@@ -1,32 +1,29 @@
 use dioxus::prelude::*;
 
+use crate::model::ui::QuestionObject;
+
 pub mod body;
 pub mod header;
 
 pub mod answer_count;
 pub mod vote_count;
 
-#[derive(Props, PartialEq)]
-pub struct QuestionProps {
-    id: u64,
-    vote: String,
-    answer: String,
-    _title: String,
-    _body: String,
-}
 
-pub fn Question(cx: Scope<QuestionProps>) -> Element {
+pub fn Question(cx: Scope<QuestionObject>) -> Element {
     cx.render(rsx! {
         div {
             header::Header{
-                id: cx.props.id,
-                _title: cx.props._title.clone()
+                key: "head",
+                post: cx.props.post.clone(),
+                answers: vec![],
+                comments: vec![],
             }
             body::Body{
-                vote: cx.props.vote.clone(),
-                answer: cx.props.answer.clone(),
-                _body: cx.props._body.clone()
+                    key: "body",
+                    post: cx.props.post.clone(),
+                    answers: cx.props.answers.clone(),
+                    comments: cx.props.comments.clone()
+                }
             }
-        }
     })
 }
