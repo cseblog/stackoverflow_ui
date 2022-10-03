@@ -1,6 +1,5 @@
 use crate::model::ui::PostObject;
 
-
 #[derive(Debug, PartialEq, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RawPost {
     pub Id: u64,

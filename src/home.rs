@@ -1,17 +1,18 @@
 #![allow(non_snake_case)]
+use crate::model::ui::QuestionObject;
 use crate::question::Question;
 use crate::search::Search;
-use crate::QUESTION_LISTS;
 use dioxus::prelude::*;
 
 pub fn Home(cx: Scope) -> Element {
-    let questions = use_atom_ref(&cx, QUESTION_LISTS);
+    let questions: &UseState<Vec<QuestionObject>> = use_state(&cx,|| vec![]);
+    let search_txt = use_state(&cx, || "".to_string());
     cx.render(rsx! {
         div {
             class: "container",
-            Search{},
+            Search{txt: search_txt.clone(), questions: questions.clone()},
             div {
-                questions.read().iter().map(|q| {
+                questions.get().iter().map(|q| {
                     rsx!{
                         Question{
                             key: "{q.post.id}",

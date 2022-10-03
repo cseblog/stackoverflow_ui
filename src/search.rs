@@ -1,24 +1,19 @@
-
-use crate::QuestionObject;
-
-use crate::QUESTION_LISTS;
-use crate::SEARCH_TXT;
 use crate::model::raw::post::RawPost;
-use crate::model::ui::PostObject;
+use crate::QuestionObject;
 use dioxus::prelude::*;
 
-
-pub fn Search(cx: Scope<()>) -> Element {
-    let state = use_state(&cx, || "".to_string());
-    
-    let questions = use_atom_ref(&cx, QUESTION_LISTS);
-
+#[inline_props]
+pub fn Search(
+    cx: Scope,
+    txt: UseState<String>,
+    questions: UseState<Vec<QuestionObject>>,
+) -> Element {
     // Get list question
-    let txt = state.get();
-    let post_request = use_future(&cx, txt, |txt| async move {
+    let search_str = txt.get();
+    let post_request = use_future(&cx, search_str, |search_str| async move {
         reqwest::Client::new()
             .post("http://localhost:9990/search")
-            .body(txt)
+            .body(search_str)
             .send()
             .await
             .unwrap()
@@ -28,19 +23,20 @@ pub fn Search(cx: Scope<()>) -> Element {
 
     match post_request.value() {
         Some(Ok(post_list)) => {
-            questions.write().clear();
+            let mut question_result = vec![];
             for p in post_list.into_iter() {
                 let pp = p.clone();
                 let q = pp.transform();
-                questions.write().push(QuestionObject {
+                question_result.push(QuestionObject {
                     post: q.clone(),
                     answers: vec![],
                     comments: vec![],
                 });
             }
+            questions.set(question_result);
         }
-        Some(Err(_)) => return cx.render(rsx!{div{"No record"}}),
-        None => return cx.render(rsx!{div{"No record"}}),
+        Some(Err(_)) => return cx.render(rsx! {div{"No record"}}),
+        None => return cx.render(rsx! {div{"No record"}}),
     };
 
     cx.render(rsx! {
@@ -60,10 +56,10 @@ pub fn Search(cx: Scope<()>) -> Element {
                     input {
                         class: "form-control",
                         placeholder: "Search question!",
-                        value: "{state}",
+                        value: "{txt}",
                         autofocus: "true",
                         oninput: move |evt| {
-                            state.set(evt.value.clone())
+                            txt.set(evt.value.clone())
                         }
                     },
                 }

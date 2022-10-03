@@ -3,7 +3,7 @@ pub mod post;
 
 use self::comment::RawCommentObject;
 use self::post::RawPost;
-use super::ui::{ CommentObject, PostObject, QuestionObject };
+use super::ui::{CommentObject, PostObject, QuestionObject};
 
 #[derive(Debug, PartialEq, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RawQuestionObject {
@@ -14,9 +14,8 @@ pub struct RawQuestionObject {
 }
 
 impl RawQuestionObject {
-
     pub fn transform(self) -> QuestionObject {
-        let post = self.Post;
+        let post = self.Post.clone();
 
         let mut ui_answers = Vec::new();
         for answer in self.Answers.into_iter() {
@@ -51,12 +50,12 @@ impl RawAnswerObject {
         return p;
     }
 
-    pub fn getUiComments(self) -> Vec<CommentObject> {
-        let mut comments = Vec::new();
-        for c in self.Comments.into_iter() {
-            let po = c.transform();
-            comments.push(po);
-        }
-        return comments;
-    }
+    // pub fn getUiComments(self) -> Vec<CommentObject> {
+    //     let mut comments = Vec::new();
+    //     for c in self.Comments.into_iter() {
+    //         let po = c.transform();
+    //         comments.push(po);
+    //     }
+    //     return comments;
+    // }
 }
