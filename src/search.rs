@@ -41,16 +41,16 @@ pub fn Search(
 
     cx.render(rsx! {
         div {
-            class: "row height d-flex justify-content-center align-items-center",
+            class: "row height header d-flex justify-content-center align-items-center",
             div {
-                class:"col-4",
+                class:"col-2 home-link",
                 a {
                     href: "/",
-                    "home"
+                    "StackOverflow"
                 }
             },
             div {
-                class: "col-8",
+                class: "col-10",
                 div {
                     class: "search",
                     input {

@@ -10,7 +10,7 @@ pub struct QuestionObject {
 #[derive(Default, Debug, PartialEq, Clone, Props)]
 pub struct PostObject {
     pub id: u64,
-    pub vote_count: u64,
+    pub view_count: u64,
     pub answer_count: u64,
     pub comment_count: u64,
     pub _title: String,

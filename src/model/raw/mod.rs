@@ -46,7 +46,7 @@ pub struct RawAnswerObject {
 impl RawAnswerObject {
     pub fn transform(self) -> PostObject {
         let mut p = self.Post.transform();
-        p.vote_count = self.VoteCount;
+        p.view_count = self.VoteCount;
         return p;
     }
 

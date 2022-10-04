@@ -28,9 +28,9 @@ impl RawPost {
             _body: self.Body.clone(),
             _title: self.Title.clone(),
             _tags: self.Tags.clone(),
-            answer_count: 0,
-            comment_count: 0,
-            vote_count: 0,
+            answer_count: self.AnswerCount.parse().unwrap_or(0),
+            comment_count: self.CommentCount.parse().unwrap_or(0),
+            view_count: self.ViewCount.parse().unwrap_or(0),
         };
         return p;
     }    

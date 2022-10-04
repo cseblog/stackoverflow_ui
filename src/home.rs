@@ -12,16 +12,27 @@ pub fn Home(cx: Scope) -> Element {
             class: "container",
             Search{txt: search_txt.clone(), questions: questions.clone()},
             div {
-                questions.get().iter().map(|q| {
-                    rsx!{
-                        Question{
-                            key: "{q.post.id}",
-                            post: q.post.clone(),
-                            answers: q.answers.clone(),
-                            comments: q.comments.clone()
+                class: "row height d-flex justify-content-center align-items-center",
+                div {
+                    class:"col-2",
+                }
+                div {
+                    class: "col-10",
+                    questions.get().iter().map(|q| {
+                        rsx!{
+                            div {
+                                key: "{q.post.id}",
+                                class:"s-post-summary",
+                                Question{
+                                    key: "{q.post.id}",
+                                    post: q.post.clone(),
+                                    answers: q.answers.clone(),
+                                    comments: q.comments.clone()
+                                }
+                            }
                         }
-                    }
-                })
+                    })
+                }
             }
         }
     })

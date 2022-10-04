@@ -1,70 +1,95 @@
 use dioxus::prelude::*;
 
-use crate::QuestionObject;
-use crate::question::vote_count::*;
 use crate::question::answer_count::*;
+use crate::question::vote_count::*;
+use crate::QuestionObject;
 
 pub fn Body(cx: Scope<QuestionObject>) -> Element {
-
     let answers = cx.props.answers.clone();
     let comments = cx.props.comments.clone();
-    
-    cx.render(rsx!{
-        div { 
+
+    let com = if comments.len() > 0 {
+        cx.render(rsx!{
+            h6{
+                "Comments"
+            }
+        })
+    } else {
+        cx.render(rsx!{
+            h6{}
+        })
+    };
+
+    let ans = if answers.len() > 0 {
+        cx.render(rsx!{
+            h6 {
+                "Answers"
+            }
+        })
+    } else {
+        cx.render(rsx!(h6{}))
+    };
+
+    cx.render(
+        rsx! {
+        div {
             class: "row answer vote-answer-block",
-            div { 
+            div {
                 class: "col-2 vote-answer-block",
                 VoteCount {
-                    count: cx.props.post.vote_count
+                    count: cx.props.post.view_count
                 }
                 AnswerCount {
                     count: cx.props.post.answer_count
                 }
             }
 
-            div { 
+            div {
                 class: "col-10 row-question-body",
                 dangerous_inner_html:"{cx.props.post._body}",
-                h5 {
-                    "Comments"
-                },
+                com,
                 comments.iter().map(|item| {
                     rsx!(
                         div {
-                            div {
-                                "{item.text}",
-                            }
+                            key: "{item.id}", 
+                            class: "comment-text",
+                            dangerous_inner_html: "{item.text}",
                         }
+                        
                     )
                 })
-
             }
 
             div {
-                h3 {
-                    "Answers"
-                }
+                class:"answers",
+                ans,
                 answers.iter().map(|item| {
                     rsx!(
                         div {
-                            class: "row answer vote-answer-block",
+                            class: "row question-page answer",
+                            key: "{item.id}",
                             div {
                                 class: "col-2 vote-answer-block",
                                 VoteCount {
-                                    count: item.vote_count
+                                    count: item.view_count
                                 }
                                 AnswerCount {
                                     count: item.answer_count
                                 }
                             }
                             div {
-                                class: "col-10 row-question-body",
-                                "{item._body}"
+                                class: "col-10 answercell post-layout--right",
+                                div {
+                                    class: "s-prose js-post-body",
+                                    dangerous_inner_html: "{item._body}"
+                                }
+
                             }
                         }
                     )
                 })
             }
         }
-    })
+    }
+    )
 }

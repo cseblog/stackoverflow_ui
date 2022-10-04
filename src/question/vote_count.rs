@@ -9,11 +9,11 @@ pub fn VoteCount(cx: Scope<VoteCountProps>) -> Element {
     cx.render(rsx! {
         div {
             class: "vote-count",
-            div {
+            span {
                 "{cx.props.count}"
             }
-            div {
-                "votes"
+            span {
+                " votes"
             }
         }
     })

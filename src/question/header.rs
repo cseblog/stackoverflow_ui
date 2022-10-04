@@ -8,8 +8,10 @@ pub fn Header(cx: Scope<QuestionObject>) -> Element {
     cx.render(rsx! {
         div {
             class:"row-question-header",
-            h4 {
+            h3 {
+                class:"fs-headline1 ow-break-word mb8 flex--item fl1",
                 a {
+                    class:"hyperlink",
                     href:"/question/{id}",
                     onclick: move |_| {
                     },

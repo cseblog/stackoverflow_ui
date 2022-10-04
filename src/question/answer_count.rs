@@ -9,11 +9,11 @@ pub fn AnswerCount(cx: Scope<AnswerCountProps>) -> Element {
     cx.render(rsx! {
         div {
             class: "answer-count",
-            div {
+            span {
                 "{cx.props.count}"
             }
-            div {
-                "anwers"
+            span {
+                " anwers"
             }
         }
     })
