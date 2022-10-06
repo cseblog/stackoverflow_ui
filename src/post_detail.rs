@@ -31,15 +31,14 @@ pub fn Post(cx: Scope) -> Element {
                 return cx.render(
                     rsx! {
                         div {
-                            class: "container",
                             Search {txt: search_txt.clone(), questions: questions.clone()},
                             div {
-                                class: "row height body-question d-flex justify-content-center align-items-center",
+                                class: "height body-question d-flex justify-content-center align-items-center",
                                 div {
                                     class:"col-2",
                                 }
                                 div {
-                                    class: "col-10",
+                                    class: "col-10 question-detail",
                                     Question{
                                         post: q.post.clone(),
                                         answers: q.answers.clone(),
@@ -54,10 +53,9 @@ pub fn Post(cx: Scope) -> Element {
                 return cx.render(
                     rsx! {
                     div {
-                        class: "container",
                         Search{txt: search_txt.clone(), questions: questions.clone()},
                         div {
-                            class: "row height  body-question d-flex justify-content-center align-items-center",
+                            class: "height  body-question d-flex justify-content-center align-items-center",
                             div {
                                 class:"col-2",
                             }

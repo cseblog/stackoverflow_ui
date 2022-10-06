@@ -50,7 +50,7 @@ pub fn Search(
                 }
             },
             div {
-                class: "col-10",
+                class: "col-8",
                 div {
                     class: "search",
                     input {

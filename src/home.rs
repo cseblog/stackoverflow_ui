@@ -9,10 +9,9 @@ pub fn Home(cx: Scope) -> Element {
     let search_txt = use_state(&cx, || "".to_string());
     cx.render(rsx! {
         div {
-            class: "container",
             Search{txt: search_txt.clone(), questions: questions.clone()},
             div {
-                class: "row height d-flex justify-content-center align-items-center",
+                class: "height d-flex justify-content-center align-items-center",
                 div {
                     class:"col-2",
                 }
